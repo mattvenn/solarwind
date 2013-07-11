@@ -8,13 +8,13 @@ def fetch_speed():
     r = requests.get(url)
     if r.status_code == 200:
         text = r.text.splitlines()
-        for line in reversed(text):
-            fields = line.split()
-            if int(fields[6]) == 0:
-                return(fields[0:4],fields[8])
-                break
-            else:
-                print "skipping bad line"
+        latest = text[-1]
+        fields = latest.split()
+        if int(fields[6]) == 0:
+            return(fields[0:4],fields[8])
+        else:
+            print "bad data"
+            exit(1)
 
 (date,speed) = fetch_speed()
 print "current solar wind speed: ", speed
