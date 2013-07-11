@@ -13,7 +13,7 @@ def fetch_speed():
         if int(fields[6]) == 0:
             return(fields[0:4],fields[8])
         else:
-            print "bad data"
+            print "bad data:", latest
             exit(1)
 
 (date,speed) = fetch_speed()
