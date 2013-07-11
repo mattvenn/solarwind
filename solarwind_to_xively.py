@@ -7,7 +7,7 @@ def fetch_speed():
     r = requests.get(url)
     if r.status_code == 200:
         text = r.text.splitlines()
-        latest = text[-1]
+        latest = text[-2]
         fields = latest.split()
         if int(fields[6]) == 0:
             return(fields[0:4],fields[8])
@@ -19,7 +19,7 @@ def fetch_speed():
         exit(1)
 
 (date,speed) = fetch_speed()
-print "current solar wind speed: ", speed
+print "current solar wind speed: ", date, speed
 
 #private key stored in a file
 keyfile="api.key"
@@ -31,4 +31,4 @@ pfu.addDatapoint('speed', speed)
 # finish up and submit the data
 pfu.buildUpdate()
 pfu.sendUpdate()
-
+print "sent"
