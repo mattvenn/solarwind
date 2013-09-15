@@ -9,7 +9,7 @@ def fetch_speed():
         text = r.text.splitlines()
         latest = text[-2]
         fields = latest.split()
-        if int(fields[6]) == 0:
+        if int(fields[6]) == 0 and fields[8] != -9999.9:
             return(fields[0:4],fields[8])
         else:
             print "bad data:", latest
