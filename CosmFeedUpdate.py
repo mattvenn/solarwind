@@ -37,6 +37,6 @@ class CosmFeedUpdate:
   def sendUpdate(self):
     url = self._url_base + self._feed_id + "?_method=put"
     try:
-      self._opener.open(url,json.dumps(self._payload))
+      self._opener.open(url,json.dumps(self._payload),timeout=10)
     except mechanize.HTTPError as e:
       print "An HTTP error occurred: %s " % e
