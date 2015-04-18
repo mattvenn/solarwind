@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import requests
-from CosmFeedUpdate import *
 import fcntl
 import logging
 from xively import xively
