@@ -3,9 +3,10 @@
 import requests
 from CosmFeedUpdate import *
 import fcntl
-
-url = 'http://services.swpc.noaa.gov/text/ace-swepam.txt'
+import logging
+from xively import xively
 feed_id = "1466087133"
+url = 'http://services.swpc.noaa.gov/text/ace-swepam.txt'
 
 def fetch_speed():
     r = requests.get(url,timeout=10)
@@ -37,13 +38,17 @@ except IOError:
 print "current solar wind speed: ", date, speed
 
 #private key stored in a file
-keyfile="api.key"
-key=open(keyfile).readlines()[0].strip()
+#keyfile="api.key"
+#key=open(keyfile).readlines()[0].strip()
 
-pfu = CosmFeedUpdate(feed_id,key)
-pfu.addDatapoint('speed', speed)
+#pfu = CosmFeedUpdate(feed_id,key)
+#pfu.addDatapoint('speed', speed)
 
+logging.basicConfig(level=logging.INFO)
+xively_t = xively(feed_id, logging)
+xively_t.add_datapoint('speed', speed)
+xively_t.start()
 # finish up and submit the data
-pfu.buildUpdate()
-pfu.sendUpdate()
+#pfu.buildUpdate()
+#pfu.sendUpdate()
 print "sent"
